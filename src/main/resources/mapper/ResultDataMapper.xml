@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.test.dao.ResultDataMapper">
+    <insert id="insert" parameterType="com.example.test.entity.ResultData">
+        insert into ResultData (result,iManagementId,resultCode,testCaseId) values (#{result},#{iManagementId},#{resultCode},#{testCaseId})
+    </insert>
+    <select id="selectByIManagementId" parameterType="com.example.test.entity.ResultData"
+            resultType="com.example.test.entity.ResultData">
+            select * from ResultData where iManagementId=#{iManagementId} and testCaseId=#{testCaseId} ORDER BY runTime DESC LIMIT 1
+    </select>
+</mapper>

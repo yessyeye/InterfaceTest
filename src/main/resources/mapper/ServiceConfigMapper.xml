@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.test.dao.ServiceConfigMapper">
+    <resultMap id="ServiceConfigMap" type="com.example.test.entity.ServiceConfig">
+        <id property="id" javaType="Integer" column="id"/>
+        <result property="servicePath" javaType="String" column="servicePath"/>
+        <association property="testCases" javaType="com.example.test.entity.TestCase">
+            <id property="sid" javaType="Integer" column="sid"/>
+        </association>
+    </resultMap>
+    <insert id="insert" parameterType="com.example.test.entity.ServiceConfig">
+        insert into ServiceConfig (id,pid,serviceName,servicePath) values (#{id},#{pid},#{serviceName},#{servicePath})
+    </insert>
+
+    <select id="selectServicePath" parameterType="com.example.test.entity.ServiceConfig" resultType="com.example.test.entity.ServiceConfig">
+        SELECT ServicePath FROM ServiceConfig where id=#{id}
+    </select>
+
+    <select id="selectAll" parameterType="com.example.test.entity.ServiceConfig"
+            resultType="com.example.test.entity.ServiceConfig">
+        select * from ServiceConfig
+    </select>
+    <select id="selectById" parameterType="java.lang.Integer"
+            resultType="com.example.test.entity.ServiceConfig">
+        select * from ServiceConfig where id=#{id}
+    </select>
+
+    <delete id="delete" parameterType="com.example.test.entity.ServiceConfig">
+        delete from ServiceConfig where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="com.example.test.entity.ServiceConfig">
+        update ServiceConfig set pid = #{pid},serviceName = #{serviceName},servicePath = #{servicePath} where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.test.dao.TestCaseMapper">
+    <resultMap id="TestCaseMap" type="com.example.test.entity.TestCase">
+        <collection property="iManagements" ofType="com.example.test.entity.IManagement">
+            <id property="id" javaType="Integer" column="id"/>
+            <result property="interfaceName" javaType="String" column="interfaceName"/>
+            <result property="interfacePath" javaType="String" column="interfacePath"/>
+            <result property="requestType" javaType="String" column="requestType"/>
+            <result property="requestParameter" javaType="String" column="requestParameter"/>
+            <result property="sid" javaType="Integer" column="sid"/>
+            <result property="interfaceHeader" javaType="String" column="interfaceHeader"/>
+            <result property="parameterType" javaType="String" column="parameterType"/>
+            <result property="processorData" javaType="String" column="processorData"/>
+            <result property="processorId" javaType="Integer" column="processorId"/>
+        </collection>
+    </resultMap>
+    <insert id="insert" parameterType="com.example.test.entity.TestCase">
+        insert into TestCase (testCaseName,sid) values (#{testCaseName},#{sid})
+    </insert>
+
+    <select id="selectAll" parameterType="com.example.test.entity.TestCase"
+            resultType="com.example.test.entity.TestCase">
+        select * from TestCase
+    </select>
+    <select id="selectById" parameterType="com.example.test.entity.TestCase"
+            resultType="com.example.test.entity.TestCase">
+        select * from TestCase where id=#{id}
+    </select>
+    <select id="selectBySid" parameterType="com.example.test.entity.TestCase"
+            resultType="com.example.test.entity.TestCase">
+        select sid from TestCase where id=#{id}
+    </select>
+    <delete id="delete" parameterType="com.example.test.entity.TestCase">
+        delete from TestCase where id=#{id}
+    </delete>
+    <update id="update" parameterType="com.example.test.entity.TestCase">
+        update TestCase set testCaseName = #{testCaseName} where id = #{id}
+    </update>
+
+    <select id="selectIManagement" resultMap="TestCaseMap">
+        SELECT distinct im.interfaceName,im.interfacePath,im.requestType,im.id,im.ParameterType,im.processorId,im.processorData,im.interfaceHeader,im.sid FROM Case_IManagement ci LEFT JOIN IManagement im on ci.IManagement_id=im.id LEFT JOIN TestCase tc on tc.id=ci.TestCase_id where ci.TestCase_id=#{id}
+    </select>
+
+    <select id="selectIManagementBySid" resultMap="TestCaseMap">
+        SELECT distinct im.sid FROM Case_IManagement ci LEFT JOIN IManagement im on ci.IManagement_id=im.id LEFT JOIN TestCase tc on tc.id=ci.TestCase_id where ci.TestCase_id=#{id}
+    </select>
+</mapper>

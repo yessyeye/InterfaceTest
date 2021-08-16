@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.test.dao.TestReportMapper">
+    <resultMap id="TestReportMap" type="com.example.test.entity.TestReport">
+        <result property="runTime" javaType="String" column="runTime"/>
+        <result property="testCaseId" javaType="Integer" column="testCaseId"/>
+        <collection property="testCase" ofType="com.example.test.entity.TestCase">
+            <id property="id" javaType="Integer" column="id"/>
+            <result property="testCaseName" javaType="String" column="testCaseName"/>
+        </collection>
+    </resultMap>
+    <insert id="insert" parameterType="com.example.test.entity.TestReport">
+        insert into TestReport (testCaseId,runTime) values (#{testCaseId},#{runTime})
+    </insert>
+    <select id="selectAll" resultMap="TestReportMap">
+        SELECT tr.id,testCaseId,tr.runTime,tc.TestCaseName FROM TestReport as tr LEFT JOIN TestCase as tc ON tr.testCaseId=tc.id
+    </select>
+</mapper>

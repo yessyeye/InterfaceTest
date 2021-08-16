@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.test.dao.ProjectConfigMapper">
+    <insert id="insert" parameterType="com.example.test.entity.ProjectConfig">
+        insert into ProjectConfig (projectName) values (#{projectName})
+    </insert>
+
+    <select id="selectAll" parameterType="com.example.test.entity.ProjectConfig"
+            resultType="com.example.test.entity.ProjectConfig">
+        select * from ProjectConfig
+    </select>
+    <select id="selectById" parameterType="com.example.test.entity.ProjectConfig"
+            resultType="com.example.test.entity.ProjectConfig">
+        select * from ProjectConfig where id=#{id}
+    </select>
+    <delete id="delete" parameterType="com.example.test.entity.ProjectConfig">
+        delete from ProjectConfig where id=#{id}
+    </delete>
+    <update id="update" parameterType="com.example.test.entity.ProjectConfig">
+        update ProjectConfig set projectName = #{projectName} where id = #{id}
+    </update>
+</mapper>
